@@ -1,10 +1,14 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:welcome_task/feature/main_state.dart';
 
-class MainCubit extends Cubit<MainState>{
+
+class MainCubit extends Cubit<MainState> {
   MainCubit() : super(const MainState(selectedIndex: 0));
 
-  void selectTab(int index) {
-    emit(MainState(selectedIndex: index));
+  int currentIndex = 0;
+
+  void selectedPage(int index) {
+    currentIndex = index;
+    emit(MainState(selectedIndex: currentIndex));
   }
 }
