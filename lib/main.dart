@@ -6,12 +6,13 @@ import 'feature/data/data_page.dart';
 import 'feature/home/home.dart';
 import 'feature/sorting/sorting_page.dart';
 import 'feature/main_state.dart';
-import 'my_app_observer.dart';
 
 void main() {
-  Bloc.observer = const MyAppObserver();
   runApp(
-    const MyApp(),
+    BlocProvider(
+      create: (context) => MainCubit(),
+      child: const MyApp(),
+    ),
   );
 }
 
@@ -22,9 +23,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: BlocProvider<MainCubit>(
-        create: (_) => MainCubit(),
-        child: Scaffold(
+      theme: ThemeData(primarySwatch: Colors.indigo),
+      home: Scaffold(
           body: BlocBuilder<MainCubit, MainState>(
             builder: (context, state) {
               switch (state.selectedIndex) {
@@ -42,9 +42,9 @@ class MyApp extends StatelessWidget {
             },
           ),
           bottomNavigationBar: BottomNavigationBar(
-              currentIndex: context.select((MainCubit cubit) => cubit.state.selectedIndex),
+              currentIndex: context.watch<MainCubit>().currentIndex,
             onTap: (index) {
-                context.read<MainCubit>().selectTab(index);
+                context.read<MainCubit>().selectedPage(index);
               },
               items: const [
                 BottomNavigationBarItem(label: "Home", icon: Icon(Icons.home)),
@@ -58,7 +58,6 @@ class MyApp extends StatelessWidget {
                 ),
               ]),
         ),
-      ),
     );
   }
 }
