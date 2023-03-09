@@ -16,46 +16,43 @@ class SortingPage extends StatelessWidget {
     //   })),
     // );
 
-    return BlocProvider(
-      create: (_) => SortCubit(),
-      child: Scaffold(
-        body: Center(
-          child: BlocBuilder<SortCubit, SortState>(
-            builder: (ctx, state) {
-              if(state is SortInitial){
-                return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: (() => ctx.read<SortCubit>().onButtonPressed()),
-                    child: const Text('Press me'),
-                  ),
-                ],
+    return Scaffold(
+      body: Center(
+        child: BlocBuilder<SortCubit, SortState>(
+          builder: (ctx, state) {
+            if(state is SortInitial){
+              return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: (() => ctx.read<SortCubit>().onButtonPressed()),
+                  child: const Text('Press me'),
+                ),
+              ],
+            );
+            }else if(state is SortLoading){
+              return const Center(
+                child: CircularProgressIndicator(),
               );
-              }else if(state is SortLoading){
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              else if(state is SortReady) {
-                return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: (() {}),
-                    child: const Text('Press me'),
-                  ),
-                  const SizedBox(height: 10,),
-                  Text(state.timeTaken),
-                ],
+            }
+            else if(state is SortReady) {
+              return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: (() => ctx.read<SortCubit>().onButtonPressed()),
+                  child: const Text('Press me'),
+                ),
+                const SizedBox(height: 10,),
+                Text(state.timeTaken),
+              ],
+            );
+            }else {
+              return const Center(
+                child: CircularProgressIndicator(),
               );
-              }else {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-            },
-          ),
+            }
+          },
         ),
       ),
     );
