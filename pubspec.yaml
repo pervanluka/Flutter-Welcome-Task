@@ -41,18 +41,18 @@ dependencies:
   google_fonts: ^4.0.3
   dio: ^5.0.1
   equatable: ^2.0.5
-  flutter_native_splash: ^2.2.18
+  flutter_native_splash: ^1.1.3
 
   lottie: ^2.2.0
+  connectivity_plus: ^3.0.3
 
 
 flutter_native_splash:
   color: "#D7D7D7"
-  image: assets/splash.png
+  image: assets/img/splash.png
 
   # android_12:
-  # image: assets/splash.png
-  # icon_background_color: "#D7D7D7"
+  # image: assets/splash_android12.png
 
 dev_dependencies:
   flutter_test:
@@ -78,7 +78,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/splash.png
+    - assets/anim/
+    - assets/img/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

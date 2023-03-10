@@ -1,4 +1,5 @@
-enum ConnectionType {
-  wifi,
-  mobile,
+enum NetworkStatus {
+  loading,
+  connected,
+  disconnected
 }
