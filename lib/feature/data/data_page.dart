@@ -23,15 +23,21 @@ class DataPage extends StatelessWidget {
       } else if (state is DonutErrorState) {
         return const Center(child: Text("Something went wrong!"));
       } else if (state is DonutLoadedState) {
-        
-        return ListView.separated(
-            itemBuilder: ((context, index) {
-              return CustomContainer(item: state.donuts[index], src: imgList[index]);
-            }),
-            separatorBuilder: (_, __) => const SizedBox(
-                  width: 20,
-                ),
-            itemCount: state.donuts.length);
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text("Donut items"),
+            centerTitle: true,
+          ),
+          body: ListView.separated(
+              itemBuilder: ((context, index) {
+                return CustomContainer(
+                    item: state.donuts[index], src: imgList[index]);
+              }),
+              separatorBuilder: (_, __) => const SizedBox(
+                    width: 20,
+                  ),
+              itemCount: state.donuts.length),
+        );
       } else {
         return Container();
       }
