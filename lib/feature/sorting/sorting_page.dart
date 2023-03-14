@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:welcome_task/feature/sorting/cubit/sort_cubit.dart';
@@ -18,7 +19,7 @@ class SortingPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Sorting"),
+        title: Text("sorting".tr()),
         centerTitle: true,
       ),
       body: Center(
@@ -30,7 +31,7 @@ class SortingPage extends StatelessWidget {
                 children: [
                   ElevatedButton(
                     onPressed: (() => ctx.read<SortCubit>().onButtonPressed()),
-                    child: const Text('Press me'),
+                    child: Text('pressMe'.tr()),
                   ),
                 ],
               );
@@ -44,7 +45,7 @@ class SortingPage extends StatelessWidget {
                 children: [
                   ElevatedButton(
                     onPressed: (() => ctx.read<SortCubit>().onButtonPressed()),
-                    child: const Text('Press me'),
+                    child: Text('pressMe'.tr()),
                   ),
                   const SizedBox(
                     height: 10,

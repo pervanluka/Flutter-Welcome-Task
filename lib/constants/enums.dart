@@ -1,5 +1,3 @@
-enum NetworkStatus {
-  loading,
-  connected,
-  disconnected
-}
+enum NetworkStatus { loading, connected, disconnected }
+
+enum Language { english, croatian }

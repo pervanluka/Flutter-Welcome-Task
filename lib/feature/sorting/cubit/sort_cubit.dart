@@ -1,6 +1,7 @@
 import 'dart:isolate';
 import 'dart:math';
 import 'package:bloc/bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 
 part 'sort_state.dart';
@@ -25,27 +26,28 @@ class SortCubit extends Cubit<SortState> {
   //   stopwatch.reset();
   //   emit(SortReady(runtime));
   // }
- 
+
   Future<void> onButtonPressed() async {
-  emit(SortLoading());
+    emit(SortLoading());
 
-  final receivePort = ReceivePort();
-  await Isolate.spawn(heavyTask, receivePort.sendPort);
+    final receivePort = ReceivePort();
+    await Isolate.spawn(heavyTask, receivePort.sendPort);
 
-  receivePort.listen(
-    (model) {
-      final data = model as HeavyTaskModel;
-      print('num.length: ${data.randomNumbers.length}');
-      print('num[0]: ${data.randomNumbers[0]}');
-      print('num[1]: ${data.randomNumbers[1]}');
-      print('num[2]: ${data.randomNumbers[2]}');
-      print('num[3]: ${data.randomNumbers[3]}');
+    receivePort.listen(
+      (model) {
+        final data = model as HeavyTaskModel;
+        print('num.length: ${data.randomNumbers.length}');
+        print('num[0]: ${data.randomNumbers[0]}');
+        print('num[1]: ${data.randomNumbers[1]}');
+        print('num[2]: ${data.randomNumbers[2]}');
+        print('num[3]: ${data.randomNumbers[3]}');
 
-      emit(SortReady('Time taken: ${data.duration.toString()} seconds'));
-    },
-  );
+        emit(SortReady('timeTaken'.tr(args: [data.duration.toString()])));
+      },
+    );
+  }
 }
-}
+
 class HeavyTaskModel {
   int duration;
   List<int> randomNumbers;
@@ -59,12 +61,12 @@ class HeavyTaskModel {
 heavyTask(SendPort sendPort) {
   Stopwatch stopwatch = Stopwatch()..start();
 
-      final random = Random();
-    final randomNumbers =
-        List.generate(25000000, (_) => random.nextInt(100000));
+  final random = Random();
+  final randomNumbers = List.generate(25000000, (_) => random.nextInt(100000));
 
   stopwatch.stop();
-  sendPort.send(HeavyTaskModel(duration: stopwatch.elapsed.inSeconds, randomNumbers: randomNumbers));
+  sendPort.send(HeavyTaskModel(
+      duration: stopwatch.elapsed.inSeconds, randomNumbers: randomNumbers));
 }
 
 void quickSort(List<int> list, int leftIndex, int rightIndex) {
