@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:welcome_task/feature/data/cubit/data_state.dart';
@@ -21,11 +22,11 @@ class DataPage extends StatelessWidget {
           child: CircularProgressIndicator(),
         );
       } else if (state is DonutErrorState) {
-        return const Center(child: Text("Something went wrong!"));
+        return Center(child: Text("errorPageString".tr()));
       } else if (state is DonutLoadedState) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text("Donut items"),
+            title: Text("donutItems".tr()),
             centerTitle: true,
           ),
           body: ListView.separated(

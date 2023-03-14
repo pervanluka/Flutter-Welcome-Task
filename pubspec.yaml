@@ -45,6 +45,7 @@ dependencies:
 
   lottie: ^2.2.0
   connectivity_plus: ^3.0.3
+  easy_localization: ^3.0.1
 
 
 flutter_native_splash:
@@ -75,11 +76,13 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  generate: true
 
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/anim/
     - assets/img/
+    - assets/translations/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

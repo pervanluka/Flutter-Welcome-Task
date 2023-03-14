@@ -1,0 +1,18 @@
+{
+    "hello": "Pozdrav! Moje ime je Rolls. Dopustite da vam predstavim SEBE!",
+    "intro": "Ja sam mobilna aplikacija s tri stranice. Napravljen sam pomoću pružatelja usluge Riverpod i initState (na početnoj stranici). Moj posao je da vam pokažem sve ono što je Luka kodirao u meni. Na prvoj stranici nalazi se opis u tri retka: prvi je ono što sada čitate, drugi je ono što je na drugoj stranici i kako je napravljeno, a treći je koji su algoritmi za sortiranje i što je najviše učinkovit način sortiranja. Ono što nije na ovom popisu je da aplikacija stalno provjerava wifi vezu i ako je nema, preusmjerit će vas na ErrorPage.",
+    "apiData": "API (Application Programming Interface) je skup pravila i protokola za pristup web-baziranoj softverskoj aplikaciji ili web-alatu. U Flutteru se API-ji koriste za dohvaćanje podataka s poslužitelja ili za slanje podataka na poslužitelj za obradu i pohranu. Flutter pruža ugrađenu podršku za upućivanje HTTP zahtjeva poslužitelju i analiziranje JSON podataka koje vraća poslužitelj. Osim toga, za Flutter su dostupne biblioteke trećih strana, kao što su popularni HTTP ili Dio paket, koji mogu pojednostaviti proces izrade API zahtjeva u Flutteru. U mom slučaju koristim Dio paket za GET zahtjev API-ju za krafne.",
+    "aboutSorting": "Algoritam sortiranja je metoda sređivanja zbirke podataka određenim redoslijedom, bilo uzlaznim ili silaznim. Algoritmi sortiranja implementirani su pomoću različitih tehnika kao što su metode temeljene na usporedbi, one koje se ne temelje na usporedbi i hibridne metode. Uobičajeni algoritmi temeljeni na usporedbi uključuju Bubble Sort, Insertion Sort, Selection Sort, Quick Sort i Merge Sort. Algoritmi koji se ne temelje na usporedbi uključuju Counting Sort i Radix Sort. Hibridne metode kao što su Tim Sort i Intro Sort koriste tehnike temeljene na usporedbi i one koje se ne temelje na usporedbi. Izbor algoritma za sortiranje ovisi o veličini podataka, vrsti podataka koji se sortiraju i željenim karakteristikama izvedbe. Stoga ću vam na stranici za sortiranje pokazati primjer kako možete sortirati kolekciju od 25 milijuna nasumičnih cijelih brojeva s algoritmom za brzo sortiranje, čija je prosječna vremenska složenost O(n log n).",
+    "home": "Početna",
+    "data": "Podaci",
+    "sorting": "Sortiranje",
+    "settings": "Postavke",
+    "donutItems": "Krafne",
+    "pressMe": "Klikni me",
+    "lightMode": "Svijetli način",
+    "darkMode": "Tamni način",
+    "english": "Engleski",
+    "croatian": "Hrvatski",
+    "errorPageString": "Nešto nije u redu!",
+    "timeTaken": "Vrijeme: {} sekundi"
+}
