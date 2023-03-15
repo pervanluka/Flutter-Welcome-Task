@@ -22,8 +22,14 @@ class DetailPage extends StatelessWidget {
       body: Center(
         child: Column(children: [
           SizedBox(
-            height: size.height*0.3,
-            child: Image.network(imgPath, width: double.infinity, fit: BoxFit.fill,),
+            height: size.height * 0.3,
+            child: Hero(
+              tag: item.id,
+                child: Image.network(
+              imgPath,
+              width: double.infinity,
+              fit: BoxFit.fill,
+            )),
           ),
           const SizedBox(
             height: 20,
@@ -53,7 +59,8 @@ class DetailPage extends StatelessWidget {
               children: [
                 const Text('Topping: ',
                     style: TextStyle(fontWeight: FontWeight.bold)),
-                Flexible(child: Text(item.topping.map((e) => e.type).join(", ")))
+                Flexible(
+                    child: Text(item.topping.map((e) => e.type).join(", ")))
               ],
             ),
           ),

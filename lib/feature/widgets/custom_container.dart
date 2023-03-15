@@ -26,12 +26,15 @@ class CustomContainer extends StatelessWidget {
           width: double.infinity,
           child: Column(
             children: [
-              ClipOval(
-                child: Image.network(
-                  src,
-                  fit: BoxFit.cover,
-                  height: 100,
-                  width: 100,
+              Hero(
+                tag: item.id,
+                child: ClipOval(
+                  child: Image.network(
+                    src,
+                    fit: BoxFit.cover,
+                    height: 100,
+                    width: 100,
+                  ),
                 ),
               ),
               Text(
