@@ -47,6 +47,10 @@ dependencies:
   connectivity_plus: ^3.0.3
   easy_localization: ^3.0.1
   firebase_core: ^2.7.1
+  google_sign_in: ^6.0.2
+  firebase_auth: ^4.2.10
+  email_validator: ^2.1.17
+  font_awesome_flutter: ^10.4.0
 
 
 flutter_native_splash:

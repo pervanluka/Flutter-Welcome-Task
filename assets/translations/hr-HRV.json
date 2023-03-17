@@ -14,5 +14,11 @@
     "english": "Engleski",
     "croatian": "Hrvatski",
     "errorPageString": "Nešto nije u redu!",
-    "timeTaken": "Vrijeme: {} sekundi"
+    "timeTaken": "Vrijeme: {} sekundi",
+    "signOut": "Odjavi se",
+    "password": "Lozinka",
+    "signIn": "Prijavi se",
+    "signInWithGoogle": "Prijavi se sa Google",
+    "emailErrorTextField": "Email nije ispravan",
+    "passwordErrorTextField": "Min. 8 znakova"
 }

@@ -14,5 +14,11 @@
     "english": "English",
     "croatian": "Croatian",
     "errorPageString": "Something went wrong!",
-    "timeTaken": "Time taken: {} seconds"
+    "timeTaken": "Time taken: {} seconds",
+    "signOut": "Sign out",
+    "password": "Password",
+    "signIn": "Sign in",
+    "signInWithGoogle": "Sign in with Google",
+    "emailErrorTextField": "Email is not correct",
+    "passwordErrorTextField": "Min. 8 characters"
 }

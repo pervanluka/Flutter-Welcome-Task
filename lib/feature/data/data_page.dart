@@ -2,12 +2,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:welcome_task/feature/data/cubit/data_state.dart';
+import 'package:welcome_task/service/api/repository/donut_repository.dart';
 
 import '../widgets/custom_container.dart';
 import 'cubit/data_cubit.dart';
 
 class DataPage extends StatelessWidget {
-  const DataPage({super.key});
+  final DonutRepository donutRepository;
+  const DataPage({super.key, required this.donutRepository});
 
   @override
   Widget build(BuildContext context) {
