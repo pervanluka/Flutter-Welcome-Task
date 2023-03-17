@@ -30,7 +30,8 @@ class SortingPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    onPressed: (() => ctx.read<SortCubit>().onButtonPressed()),
+                    onPressed: (() =>
+                        ctx.read<SortCubit>().onButtonPressed()),
                     child: Text('pressMe'.tr()),
                   ),
                 ],
@@ -44,7 +45,8 @@ class SortingPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    onPressed: (() => ctx.read<SortCubit>().onButtonPressed()),
+                    onPressed: (() =>
+                        ctx.read<SortCubit>().onButtonPressed()),
                     child: Text('pressMe'.tr()),
                   ),
                   const SizedBox(

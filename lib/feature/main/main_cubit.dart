@@ -48,7 +48,7 @@ import 'package:welcome_task/feature/main/main_state.dart';
 class MainCubit extends Cubit<MainState> {
   final Connectivity connectivity;
   late StreamSubscription connectivitySubscription;
-  MainCubit(this.connectivity)
+  MainCubit({required this.connectivity})
       : super(
             const MainState(selectedIndex: 0, status: NetworkStatus.loading)) {
     connectivitySubscription =

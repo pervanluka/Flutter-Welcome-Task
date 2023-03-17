@@ -26,25 +26,3 @@ class MainState extends Equatable {
     );
   }
 }
-
-// class InitialState extends MainState {}
-
-// class ConnectedState extends MainState {
-//   final int selectedIndex;
-
-//   ConnectedState({required this.selectedIndex});
-
-//   ConnectedState copyWith({int? selectedIndex}) {
-//     return ConnectedState(selectedIndex: selectedIndex ?? this.selectedIndex);
-//   }
-// }
-
-// class DisconnectedState extends MainState {
-//   final int selectedIndex;
-
-//   DisconnectedState({required this.selectedIndex});
-
-//   DisconnectedState copyWith({int? selectedIndex}) {
-//     return DisconnectedState(selectedIndex: selectedIndex ?? this.selectedIndex);
-//   }
-// }
