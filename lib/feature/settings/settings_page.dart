@@ -1,14 +1,122 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:math';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:welcome_task/feature/auth/cubit/auth_cubit.dart';
-import 'package:welcome_task/feature/main/main_cubit.dart';
 import 'package:welcome_task/feature/settings/cubit/settings_cubit.dart';
+import 'package:welcome_task/feature/settings/show_map.dart';
 
 import '../../constants/enums.dart';
+import '../../model/city_model.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
+
+  Future<Position> findMyLocation() async {
+    final GeolocatorPlatform geolocatorPlatform = GeolocatorPlatform.instance;
+    var permission = await Geolocator.checkPermission();
+    bool serviceEnabled = await geolocatorPlatform.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // Location services are not enabled don't continue
+      // accessing the position and request users of the
+      // App to enable the location services.
+      await Geolocator.openLocationSettings();
+    }
+
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        // Permissions are denied, next time you could try
+        // requesting permissions again (this is also where
+        // Android's shouldShowRequestPermissionRationale
+        // returned true. According to Android guidelines
+        // your App should show an explanatory UI now.
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      await Geolocator.openLocationSettings();
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    Position position = await Geolocator.getCurrentPosition();
+    debugPrint(
+        '${position.latitude.toString()}, ${position.longitude.toString()}');
+    return position;
+  }
+
+  Future<City> showRandomCity() async {
+    Random random = Random();
+    List<City> listOfCities = [];
+    List<Map<String, dynamic>> cities = [
+      {
+        'name': 'Tokyo',
+        'latitude': 35.6740958,
+        'longitude': 139.7002811,
+      },
+      {
+        'name': 'New York City',
+        'latitude': 40.6974034,
+        'longitude': -74.1197624,
+      },
+      {
+        'name': 'Paris',
+        'latitude': 48.8588336,
+        'longitude': 2.2769959,
+      },
+      {
+        'name': 'London',
+        'latitude': 51.5285582,
+        'longitude': -0.2416789,
+      },
+      {
+        'name': 'Dubai',
+        'latitude': 25.0757464,
+        'longitude': 54.9404104,
+      },
+      {
+        'name': 'Singapore',
+        'latitude': 1.3139961,
+        'longitude': 103.7041666,
+      },
+      {
+        'name': 'Istanbul',
+        'latitude': 41.0052367,
+        'longitude': 28.8720981,
+      },
+      {
+        'name': 'Hong Kong',
+        'latitude': 22.3526738,
+        'longitude': 113.9876172,
+      },
+      {
+        'name': 'Barcelona',
+        'latitude': 41.3926467,
+        'longitude': 2.0701498,
+      },
+      {
+        'name': 'Rome',
+        'latitude': 41.909986,
+        'longitude': 12.3959166,
+      }
+    ];
+    for (Map<String, dynamic> i in cities) {
+      listOfCities.add(City.fromJson(i));
+    }
+
+    int randomIndex = random.nextInt(cities.length);
+    final randomCity = listOfCities[randomIndex];
+    debugPrint(randomCity.name);
+    // await openMap(randomCity.latitude, randomCity.longitude);
+    return randomCity;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,6 +209,47 @@ class SettingsPage extends StatelessWidget {
                       debugPrint('Language: ${newValue.name}');
                     },
                   ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () async {
+                          final position = await findMyLocation();
+                          showDialog(
+                            barrierDismissible: false,
+                            context: context,
+                            builder: ((context) => AlertDialog(
+                                  content: Text(
+                                      'Latitude: ${position.latitude} Longitude: ${position.longitude}'),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () => Navigator.pop(context),
+                                        child: const Text("OK"))
+                                  ],
+                                )),
+                          );
+                        },
+                        child: const Text("Find Location"),
+                      ),
+                      const SizedBox(
+                        width: 6,
+                      ),
+                      ElevatedButton(
+                        onPressed: () async {
+                          final city = await showRandomCity();
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      ShowMapPage(city: city)));
+                        },
+                        child: const Text("Show city"),
+                      ),
+                    ],
+                  ),
                   const Spacer(),
                   SizedBox(
                     width: double.infinity,
@@ -108,7 +257,7 @@ class SettingsPage extends StatelessWidget {
                     child: ElevatedButton.icon(
                         onPressed: () {
                           BlocProvider.of<AuthCubit>(context).signOutRequest();
-                          BlocProvider.of<MainCubit>(context).selectedPage(0);
+                          // BlocProvider.of<MainCubit>(context).selectedPage(0);
                         },
                         icon: const Icon(Icons.logout),
                         label: Text("signOut".tr())),
