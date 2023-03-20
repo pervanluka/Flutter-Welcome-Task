@@ -90,147 +90,149 @@ class _SignInPageState extends State<SignInPage> {
             }
             if (state is UnAuthenticated) {
               return SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: Center(
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: size.height * 0.3,
-                          child: Image.asset(
-                            "assets/img/splash.png",
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25),
+                    child: Center(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: size.height * 0.3,
+                            child: Image.asset(
+                              "assets/img/splash.png",
+                              width: double.infinity,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Form(
+                            key: emailFormKey,
+                            child: TextFormField(
+                              key: emailTextFieldKey,
+                              keyboardType: TextInputType.emailAddress,
+                              controller: emailController,
+                              // style: AppTextStyles.base,
+                              // cursorColor: Colors.black87,
+                              decoration: InputDecoration(
+                                labelText: 'Email',
+                                // labelStyle: const TextStyle(color: Colors.black54),
+                                focusedErrorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                    borderSide:
+                                        const BorderSide(color: Colors.red)),
+                                errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                    borderSide:
+                                        const BorderSide(color: Colors.red)),
+                                enabledBorder: const OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey),
+                                ),
+                                focusedBorder: const OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey),
+                                ),
+                                // fillColor: Colors.grey.shade800,
+                                filled: true,
+                                hintText: 'Email',
+                                hintStyle: TextStyle(color: Colors.grey[500]),
+                              ),
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              validator: (email) =>
+                                  email != null && !EmailValidator.validate(email)
+                                      ? 'emailErrorTextField'.tr()
+                                      : null,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          SizedBox(
+                            height: 70,
+                            child: TextFormField(
+                              obscureText: _isHidden,
+                              keyboardType: TextInputType.emailAddress,
+                              controller: passwordController,
+                              // cursorColor: Colors.black87,
+                              decoration: InputDecoration(
+                                suffix: InkWell(
+                                  onTap: () => _togglePasswordView(),
+                                  child: Icon(
+                                    _isHidden
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
+                                  ),
+                                ),
+                                labelText: 'password'.tr(),
+                                // labelStyle: const TextStyle(color: Colors.black54),
+                                focusedErrorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                    borderSide:
+                                        const BorderSide(color: Colors.red)),
+                                errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                    borderSide:
+                                        const BorderSide(color: Colors.red)),
+                                enabledBorder: const OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey),
+                                ),
+                                focusedBorder: const OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey),
+                                ),
+                                // fillColor: Colors.grey.shade800,
+                                filled: true,
+                                hintText: 'password'.tr(),
+                                hintStyle: TextStyle(color: Colors.grey[500]),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          SizedBox(
                             width: double.infinity,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Form(
-                          key: emailFormKey,
-                          child: TextFormField(
-                            key: emailTextFieldKey,
-                            keyboardType: TextInputType.emailAddress,
-                            controller: emailController,
-                            // style: AppTextStyles.base,
-                            // cursorColor: Colors.black87,
-                            decoration: InputDecoration(
-                              labelText: 'Email',
-                              // labelStyle: const TextStyle(color: Colors.black54),
-                              focusedErrorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                  borderSide:
-                                      const BorderSide(color: Colors.red)),
-                              errorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                  borderSide:
-                                      const BorderSide(color: Colors.red)),
-                              enabledBorder: const OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey),
-                              ),
-                              focusedBorder: const OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey),
-                              ),
-                              // fillColor: Colors.grey.shade800,
-                              filled: true,
-                              hintText: 'Email',
-                              hintStyle: TextStyle(color: Colors.grey[500]),
-                            ),
-                            autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
-                            validator: (email) =>
-                                email != null && !EmailValidator.validate(email)
-                                    ? 'emailErrorTextField'.tr()
-                                    : null,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        SizedBox(
-                          height: 70,
-                          child: TextFormField(
-                            obscureText: _isHidden,
-                            keyboardType: TextInputType.emailAddress,
-                            controller: passwordController,
-                            // cursorColor: Colors.black87,
-                            decoration: InputDecoration(
-                              suffix: InkWell(
-                                onTap: () => _togglePasswordView(),
-                                child: Icon(
-                                  _isHidden
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
+                            height: 50,
+                            child: ElevatedButton.icon(
+                              style: ButtonStyle(
+                                shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
                                 ),
                               ),
-                              labelText: 'password'.tr(),
-                              // labelStyle: const TextStyle(color: Colors.black54),
-                              focusedErrorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                  borderSide:
-                                      const BorderSide(color: Colors.red)),
-                              errorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                  borderSide:
-                                      const BorderSide(color: Colors.red)),
-                              enabledBorder: const OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey),
-                              ),
-                              focusedBorder: const OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey),
-                              ),
-                              // fillColor: Colors.grey.shade800,
-                              filled: true,
-                              hintText: 'password'.tr(),
-                              hintStyle: TextStyle(color: Colors.grey[500]),
+                              onPressed: () {
+                                if (emailFormKey.currentState!.validate()) {
+                                  _cubit.signInRequst(emailController.text,
+                                      passwordController.text);
+                                }
+                              },
+                              icon: const Icon(Icons.login),
+                              label: Text('signIn'.tr()),
                             ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        SizedBox(
-                          width: double.infinity,
-                          height: 50,
-                          child: ElevatedButton.icon(
-                            style: ButtonStyle(
-                              shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          SizedBox(
+                            height: 50,
+                            width: double.infinity,
+                            child: ElevatedButton.icon(
+                              style: ButtonStyle(
+                                shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
                                 ),
                               ),
+                              onPressed: () => _cubit.googleSignInRequest(),
+                              icon: Image.asset('assets/img/google_logo.png'),
+                              label: Text('signInWithGoogle'.tr()),
                             ),
-                            onPressed: () {
-                              if (emailFormKey.currentState!.validate()) {
-                                _cubit.signInRequst(emailController.text,
-                                    passwordController.text);
-                              }
-                            },
-                            icon: const Icon(Icons.login),
-                            label: Text('signIn'.tr()),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        SizedBox(
-                          height: 50,
-                          width: double.infinity,
-                          child: ElevatedButton.icon(
-                            style: ButtonStyle(
-                              shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                              ),
-                            ),
-                            onPressed: () => _cubit.googleSignInRequest(),
-                            icon: Image.asset('assets/img/google_logo.png'),
-                            label: Text('signInWithGoogle'.tr()),
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),

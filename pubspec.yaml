@@ -51,6 +51,9 @@ dependencies:
   firebase_auth: ^4.2.10
   email_validator: ^2.1.17
   font_awesome_flutter: ^10.4.0
+  geolocator: ^9.0.2
+  flutter_map: ^3.1.0
+  latlong2: ^0.8.1
 
 
 flutter_native_splash:

@@ -9,7 +9,7 @@ class DioClient {
   DioClient(this._dio) {
     _dio
       ..options.baseUrl = AppEndpoits.baseUrl
-      ..options.connectTimeout = const Duration(milliseconds: 3000)
+      ..options.connectTimeout = const Duration(milliseconds: 10000)
       ..options.receiveTimeout = const Duration(milliseconds: 3000)
       ..options.responseType = ResponseType.json
       ..interceptors.add(LogInterceptor(
