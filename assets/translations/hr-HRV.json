@@ -20,5 +20,7 @@
     "signIn": "Prijavi se",
     "signInWithGoogle": "Prijavi se sa Google",
     "emailErrorTextField": "Email nije ispravan",
-    "passwordErrorTextField": "Min. 8 znakova"
+    "passwordErrorTextField": "Min. 8 znakova",
+    "permissionDenided": "Korisnik ne dozvoljava upotrebu lokacije.",
+    "permissionDenidedForever": "Dozvola za lokaciju je trajno odbijena, ne možemo je zatražiti. Želite li uključiti lokaciju?"
 }
