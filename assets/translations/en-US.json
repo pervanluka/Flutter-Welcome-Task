@@ -20,5 +20,7 @@
     "signIn": "Sign in",
     "signInWithGoogle": "Sign in with Google",
     "emailErrorTextField": "Email is not correct",
-    "passwordErrorTextField": "Min. 8 characters"
+    "passwordErrorTextField": "Min. 8 characters",
+    "permissionDenided": "User denide permissions to access the device's location.",
+    "permissionDenidedForever": "Location permissions are permanently denied, we cannot request permissions. Do you want to turn on?"
 }

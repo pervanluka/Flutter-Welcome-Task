@@ -16,40 +16,70 @@ import '../../model/city_model.dart';
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
 
-  Future<Position> findMyLocation() async {
+  Future<Position?> findMyLocation(BuildContext context) async {
     final GeolocatorPlatform geolocatorPlatform = GeolocatorPlatform.instance;
-    var permission = await Geolocator.checkPermission();
     bool serviceEnabled = await geolocatorPlatform.isLocationServiceEnabled();
+    bool userWentToSettings = false;
+
     if (!serviceEnabled) {
       // Location services are not enabled don't continue
       // accessing the position and request users of the
       // App to enable the location services.
-      await Geolocator.openLocationSettings();
-    }
-
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        // Permissions are denied, next time you could try
-        // requesting permissions again (this is also where
-        // Android's shouldShowRequestPermissionRationale
-        // returned true. According to Android guidelines
-        // your App should show an explanatory UI now.
-        return Future.error('Location permissions are denied');
+      if (!serviceEnabled) {
+        await geolocatorPlatform.isLocationServiceEnabled();
       }
     }
 
+    var permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission =
+          await Geolocator.requestPermission().onError((error, stackTrace) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("permissionDenided".tr()),
+        ));
+        return LocationPermission.denied;
+      });
+    }
     if (permission == LocationPermission.deniedForever) {
       // Permissions are denied forever, handle appropriately.
-      await Geolocator.openLocationSettings();
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
-    }
+      await showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) => AlertDialog(
+          content: Text('permissionDenidedForever'.tr()),
+          actions: [
+            TextButton(
+              onPressed: () async {
+                userWentToSettings = true;
+                await Geolocator.openLocationSettings()
+                    .then((value) => Navigator.pop(context));
+              },
+              child: const Text('OK'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Cancel'),
+            ),
+          ],
+        ),
+      );
 
-    Position position = await Geolocator.getCurrentPosition();
-    debugPrint(
-        '${position.latitude.toString()}, ${position.longitude.toString()}');
-    return position;
+      if (userWentToSettings) {
+        return null;
+      }
+    }
+    
+    try {
+      Position position = await Geolocator.getCurrentPosition();
+      debugPrint(
+          '${position.latitude.toString()}, ${position.longitude.toString()}');
+      return position;
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("permissionDenided".tr()),
+      ));
+    }
+    return null;
   }
 
   Future<City> showRandomCity() async {
@@ -217,20 +247,23 @@ class SettingsPage extends StatelessWidget {
                     children: [
                       ElevatedButton(
                         onPressed: () async {
-                          final position = await findMyLocation();
-                          showDialog(
-                            barrierDismissible: false,
-                            context: context,
-                            builder: ((context) => AlertDialog(
-                                  content: Text(
-                                      'Latitude: ${position.latitude} Longitude: ${position.longitude}'),
-                                  actions: [
-                                    TextButton(
-                                        onPressed: () => Navigator.pop(context),
-                                        child: const Text("OK"))
-                                  ],
-                                )),
-                          );
+                          final position = await findMyLocation(context);
+                          if (position != null) {
+                            showDialog(
+                              barrierDismissible: false,
+                              context: context,
+                              builder: ((context) => AlertDialog(
+                                    content: Text(
+                                        'Latitude: ${position.latitude} Longitude: ${position.longitude}'),
+                                    actions: [
+                                      TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(context),
+                                          child: const Text("OK"))
+                                    ],
+                                  )),
+                            );
+                          }
                         },
                         child: const Text("Find Location"),
                       ),
