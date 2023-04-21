@@ -6,5 +6,5 @@ Welcome task from Rolla with:
 - Internationalization
 - Dark/Light mode
 - Firebase login
-- Multithreding handling
+- Multithred handler
 - Network data
